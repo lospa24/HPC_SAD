@@ -4,30 +4,33 @@ Pkg.activate(".")
 using Flux
 using CUDA
 
-# Check GPU
+
 device = CUDA.functional() ? gpu : cpu
 
-# Dummy dataset
-x = rand(Float32, 10, 1000)
-y = sum(x, dims=1)
+x = rand(Float32, 10, 1000) |> device
+y = sum(x, dims=1) |> device
 
-x = device(x)
-y = device(y)
-
-# Model
 model = Chain(
     Dense(10, 64, relu),
     Dense(64, 1)
 ) |> device
 
-loss(x, y) = Flux.mse(model(x), y)
+loss(m, x, y) = Flux.mse(m(x), y)
 
 opt = Adam(1e-3)
 
-# Training loop
-for epoch in 1:50
-    grads = gradient(() -> loss(x, y), Flux.params(model))
-    Flux.Optimise.update!(opt, Flux.params(model), grads)
+#  NEW required state object
+state = Flux.setup(opt, model)
 
-    println("Epoch $epoch | Loss: $(loss(x, y))")
+for epoch in 1:50
+
+    #  NEW gradient style (NO Params)
+    grads = gradient(model) do m
+        loss(m, x, y)
+    end
+
+    #  correct update call
+    Flux.update!(state, model, grads)
+
+    println("epoch $epoch loss = ", loss(model, x, y))
 end

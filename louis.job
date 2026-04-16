@@ -14,7 +14,8 @@
 #SBATCH --mail-user=lospa24@student.sdu.dk
 
 module load cuda 
-
+export CUDA_VISIBLE_DEVICES=0
+export JULIA_CUDA_USE_BINARYBUILDER=true
 
 echo "=== GPU INFO ==="
 nvidia-smi || echo "NO GPU VISIBLE"

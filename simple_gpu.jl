@@ -6,7 +6,9 @@ ENV["JULIA_CUDA_USE_BINARYBUILDER"] = "true"
 
 using Flux
 using CUDA
-CUDA.set_runtime_version!(v"12.2")
+
+println("CUDA functional: ", CUDA.functional())
+println("Device: ", CUDA.device())
 
 
 device = CUDA.functional() ? gpu : cpu

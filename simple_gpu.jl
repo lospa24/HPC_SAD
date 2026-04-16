@@ -30,7 +30,7 @@ for epoch in 1:50
     end
 
     #  correct update call
-    Flux.update!(state, model, grads)
+    Flux.update!(state, model, grads[1])
 
     println("epoch $epoch loss = ", loss(model, x, y))
 end

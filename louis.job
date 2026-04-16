@@ -15,4 +15,10 @@
 
 module load cuda 
 
+
+echo "=== GPU INFO ==="
+nvidia-smi || echo "NO GPU VISIBLE"
+
+echo "CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES"
+
 ~/julia-1.12.0/bin/julia ./simple_gpu.jl

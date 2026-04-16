@@ -1,8 +1,12 @@
 using Pkg
 Pkg.activate(".")
 
+ENV["CUDA_VISIBLE_DEVICES"] = "0"
+ENV["JULIA_CUDA_USE_BINARYBUILDER"] = "true"
+
 using Flux
 using CUDA
+CUDA.set_runtime_version!(v"12.2")
 
 
 device = CUDA.functional() ? gpu : cpu

@@ -13,6 +13,6 @@
 #SBATCH --mail-type=end
 #SBATCH --mail-user=lospa24@student.sdu.dk
 
-model load cuda 
+module load cuda 
 
 ~/julia-1.12.0/bin/julia ./simple_gpu.jl

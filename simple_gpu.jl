@@ -9,11 +9,9 @@ println("CUDA functional: ", CUDA.functional())
 println("Device: ", CUDA.device())
 
 
-
-
+using Flux
 device = CUDA.functional() ? gpu : cpu
 
-using Flux
 
 x = rand(Float32, 10, 1000) |> device
 y = sum(x, dims=1) |> device

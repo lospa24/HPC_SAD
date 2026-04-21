@@ -22,4 +22,4 @@ nvidia-smi || echo "NO GPU VISIBLE"
 
 echo "CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES"
 
-~/julia-1.12.0/bin/julia ./simple_gpu.jl
+~/julia-1.12.0/bin/julia ./lattice_gpu.jl -l 0.0 -k 0.2485

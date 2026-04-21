@@ -34,7 +34,6 @@ function parse_commandline()
             arg_type = String
             default = "Float32"
 
-
         "--epochs", "-e"
             arg_type = Int
             default = 100
